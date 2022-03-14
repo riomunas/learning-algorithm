@@ -4,7 +4,7 @@ import static org.abuaisyah.Util.*;
 
 public class Mergesort {
     public static void main(String[] args) {
-        int numbers[] = { 10, 8};//, 4, 80, 13, 1, 3, 11, -1 };
+        int numbers[] = { 10, 8, 4, 80, 13, 1, 3, 11, -1 };
 
         printArrayToText(numbers);
         mergeSort(numbers);
@@ -35,13 +35,44 @@ public class Mergesort {
     private static void merge(int[] numbers, int[] leftHalf, int[] rightHalf) {
         int leftHalfIndex = 0;
         int rightHalfIndex = 0;
-        int indexNumbers = 0;
+        int numbersIndex = 0;
 
         int leftHalfSize = leftHalf.length;
         int rightHalfSize = rightHalf.length;
 
         while (leftHalfIndex < leftHalfSize || rightHalfIndex < rightHalfSize ) {
+            /*
+            left = left[leftIndex]
+            right = right[rightIndex]
+            isProcessLeft = left <= right
+            if (isProcessLeft)
+            maka counter left, counter number
+            else
+            maka counter right, counter number
+             */
+            boolean isProcessLeft = false;
+            try {
+                int left = leftHalf[leftHalfIndex];
+                int right = rightHalf[rightHalfIndex];
+                if (left <= right)
+                    isProcessLeft = true;
+            } catch (Exception e) {
+                if (rightHalfIndex >= rightHalfSize) {
+                    isProcessLeft = true;
+                }
+                if (leftHalfIndex >= leftHalfSize) {
+                    isProcessLeft = false;
+                }
+            }
 
+            if (isProcessLeft) {
+                numbers[numbersIndex] = leftHalf[leftHalfIndex];
+                leftHalfIndex++;
+            } else {
+                numbers[numbersIndex] = rightHalf[rightHalfIndex];
+                rightHalfIndex++;
+            }
+            numbersIndex++;
         }
     }
 
